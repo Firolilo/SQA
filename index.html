@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SDLC — Sistema de Reservas de Hotel</title>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Fuente: Inter (jerarquía clara y legible en interfaces) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
@@ -15,19 +19,21 @@
       --panel:#0E0E0E;        /* paneles/tarjetas */
       --panel2:#0E0E0E;       /* paneles */
       --ink:#FFFFFF;          /* texto principal blanco */
-      --muted:#FFFFFF;        /* texto secundario (solicitado: todo blanco) */
+      --muted:#9CA3AF;        /* texto secundario gris (jerarquía clara) */
       --line:#1F1F1F;         /* bordes sutiles */
       --sdlc:#FFFFFF;         /* acento blanco (monocromo) */
       --stlc:#FFFFFF;         /* acento blanco (monocromo) */
       --accent:#D1D5DB;       /* gris claro para focos */
       --glow:none;            /* sin brillos */
-      --radius:12px
+      --radius:0px            /* esquinas rectas (Grazia) */
     }
     *{box-sizing:border-box}
+    /* Tipografía base y legibilidad global */
     body{
-      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto;
+      margin:0; font-family:'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto;
       background:var(--bg);
-      color:var(--ink)
+      color:var(--ink);
+      line-height:1.6; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale
     }
     header{
       background:rgba(0,0,0,.85); backdrop-filter:saturate(120%);
@@ -35,11 +41,14 @@
     }
     .wrap{max-width:1100px; margin:0 auto; padding:14px 20px}
     .title{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
-    .title h1{margin:0; font-size:clamp(20px,3.2vw,30px)}
+    /* Título principal: más grande, peso alto, leve tracking */
+    .title h1{margin:0; font-size:clamp(28px,3.6vw,40px); font-weight:700; letter-spacing:.2px}
+    /* Elementos de énfasis compactos */
     .chip{padding:4px 8px; border-radius:var(--radius); font-size:12px; color:var(--ink); font-weight:600; border:1px solid var(--line); background:transparent}
     .chip.sdlc{border-color:#2E2E2E}
     .chip.hint{color:var(--muted)}
-    .sub{color:var(--muted); font-size:14px}
+    /* Subtítulo bajo el header: texto guía y respiración */
+    .sub{color:var(--muted); font-size:16px; max-width:72ch}
 
     /* Timeline (solo SDLC) */
     .timeline{max-width:1100px; margin:20px auto; display:grid; gap:14px; padding:0 20px}
@@ -53,8 +62,9 @@
     .card:hover{transform:translateY(-1px); border-color:#2E2E2E}
     .card.is-open{border-color:#2E2E2E}
     .card::before{display:none}
-    .card h3{margin:0 0 6px 0; font-size:18px; line-height:1.25}
-    .card p{margin:0; color:var(--ink); line-height:1.5}
+    /* Titular de tarjeta: destaca; párrafo en gris para jerarquía */
+    .card h3{margin:0 0 6px 0; font-size:20px; line-height:1.25; font-weight:600; letter-spacing:.2px}
+    .card p{margin:0; color:var(--muted); line-height:1.55}
     .actions{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap}
     .btn{
       appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink);
@@ -69,7 +79,8 @@
     .inner{border-top:1px solid var(--line); margin-top:12px; padding-top:12px}
     .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:14px}
     .panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:12px}
-    .panel h4{margin:0 0 6px 0; font-size:14px; color:var(--ink)}
+    /* Subtítulo de sección dentro de expansores */
+    .panel h4{margin:0 0 6px 0; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; font-weight:600}
     .list{margin:.2rem 0 0 1.1rem; color:var(--ink)}
 
     /* STLC chips/cards */
@@ -110,7 +121,7 @@
 <body>
   <header>
     <div class="wrap title">
-      <h1>SDLC — Sistema de Reservas de Hotel</h1>
+      <h1>Guía SDLC y STLC — Sistema de Reservas de Hotel</h1>
       <span class="chip sdlc">SDLC</span>
       <span class="chip hint">STLC aparece al seleccionar</span>
     </div>
@@ -118,7 +129,8 @@
 
   <main>
     <div class="wrap">
-      <p class="sub">Explora cada fase del ciclo de vida del desarrollo de software (SDLC) y descubre cómo se aplica el aseguramiento de calidad en un sistema de reservas de hotel. Haz clic en cada tarjeta para ver detalles y las fases del ciclo de vida de pruebas (STLC) relacionadas.</p>
+      <!-- Texto guía: qué ver y cómo interactuar -->
+      <p class="sub">Conoce, paso a paso, cómo se construye y se asegura la calidad de un sistema de reservas de hotel. Selecciona cada fase para ver qué se hace, por qué se hace y cómo se valida en pruebas (STLC).</p>
     </div>
 
     <section class="timeline" id="timeline"></section>
@@ -152,8 +164,8 @@
   // ---------- Datos SDLC (hotel) ----------
   const SDLC = [
     {
-      id:'s-req', title:'1. Análisis de Requisitos',
-      desc:'Fase crucial donde definimos QUÉ debe hacer el sistema de reservas y cómo mediremos su calidad.',
+      id:'s-req', title:'Fase 1 — Análisis de Requisitos',
+      desc:'Definimos qué debe lograr el sistema y criterios claros de calidad y éxito.',
       hotel:[
         'Definimos historias de usuario clave: búsqueda de habitaciones, proceso de reserva, gestión de pagos y políticas de cancelación.',
         'Establecemos reglas de negocio: tipos de habitación, gestión de temporadas, límites de ocupación, política de no overbooking.',
@@ -162,8 +174,8 @@
       related:['t-plan','t-analysis','t-design']
     },
     {
-      id:'s-design', title:'2. Diseño del Sistema',
-      desc:'Fase donde transformamos los requisitos en una arquitectura testeable y mantenible.',
+      id:'s-design', title:'Fase 2 — Diseño del Sistema',
+      desc:'Convertimos requisitos en una arquitectura clara, modular y comprobable.',
       hotel:[
         'Diseñamos el modelo de datos: Reserva (status, fechas), Cliente (datos personales), Habitación (tipo, amenities), Tarifa (temporada, precios), Pago (método, estado).',
         'Definimos APIs RESTful con documentación OpenAPI: endpoints para búsqueda, reserva, pagos y notificaciones.',
@@ -172,8 +184,8 @@
       related:['t-analysis','t-design']
     },
     {
-      id:'s-dev', title:'3. Implementación',
-      desc:'Fase de construcción con enfoque en calidad desde el código.',
+      id:'s-dev', title:'Fase 3 — Implementación',
+      desc:'Construimos funcionalidades siguiendo buenas prácticas y diseño orientado a pruebas.',
       hotel:[
         'Desarrollamos motor de disponibilidad en tiempo real con caché y validaciones.',
         'Implementamos integración con pasarela de pagos en ambiente sandbox para pruebas seguras.',
@@ -182,8 +194,8 @@
       related:['t-env']
     },
     {
-      id:'s-test', title:'4. Pruebas en SDLC',
-      desc:'Fase de validación integral para garantizar calidad y confiabilidad.',
+      id:'s-test', title:'Fase 4 — Pruebas en SDLC',
+      desc:'Validamos el sistema de extremo a extremo para asegurar calidad, seguridad y confiabilidad.',
       hotel:[
         'Automatizamos flujo completo: búsqueda de habitación → selección → pago → confirmación por email.',
         'Validamos reglas críticas: cancelaciones con/sin cargo, políticas de no-show, restricciones de ocupación.',
@@ -192,8 +204,8 @@
       related:['t-exec']
     },
     {
-      id:'s-deploy', title:'5. Despliegue',
-      desc:'Fase de transición a producción con verificaciones de calidad.',
+      id:'s-deploy', title:'Fase 5 — Despliegue',
+      desc:'Publicamos con control, monitoreo activo y plan de reversión verificado.',
       hotel:[
         'Ejecutamos migración de datos: carga inicial de habitaciones, tarifas y configuraciones.',
         'Implementamos monitoreo: alertas de errores críticos, métricas de tiempo de respuesta.',
@@ -202,8 +214,8 @@
       related:['t-close']
     },
     {
-      id:'s-maint', title:'6. Mantenimiento',
-      desc:'Fase continua de mejora y aseguramiento de calidad.',
+      id:'s-maint', title:'Fase 6 — Mantenimiento',
+      desc:'Mejora continua: nuevas capacidades, seguridad al día y cero regresiones.',
       hotel:[
         'Añadimos nuevas funcionalidades: sistema de promociones, integración con agencias de viaje online.',
         'Realizamos actualizaciones de seguridad y optimizaciones de rendimiento.',
@@ -217,7 +229,7 @@
   const STLC = [
     {
       id:'t-plan', title:'1. Planificación de Pruebas',
-      desc:'Primera fase donde diseñamos la estrategia de calidad y definimos CÓMO probaremos el sistema.',
+      desc:'Definimos estrategia, alcance, riesgos y criterios de éxito de la validación.',
       kpis:[
         ['Estrategia', '100% funcionalidades críticas cubiertas'],
         ['Riesgo', 'Matriz de riesgos priorizada y mitigada']
@@ -230,7 +242,7 @@
     },
     {
       id:'t-analysis', title:'2. Análisis de Pruebas',
-      desc:'Fase donde estudiamos a fondo los requisitos para identificar QUÉ probar exactamente.',
+      desc:'Traducimos requisitos en QUÉ probar y con qué prioridad según riesgo/impacto.',
       kpis:[
         ['Trazabilidad', 'Matriz requisito → casos de prueba'],
         ['Prioridad', 'Clasificación por riesgo e impacto']
@@ -243,7 +255,7 @@
     },
     {
       id:'t-design', title:'3. Diseño de Casos',
-      desc:'Fase creativa donde desarrollamos el CÓMO probar cada funcionalidad.',
+      desc:'Diseñamos casos claros, repetibles y orientados a cubrir valor de negocio.',
       kpis:[
         ['Calidad', 'Casos independientes y reutilizables'],
         ['Cobertura', '100% flujos críticos cubiertos']
@@ -256,7 +268,7 @@
     },
     {
       id:'t-env', title:'4. Configuración del Entorno',
-      desc:'Fase técnica donde preparamos DÓNDE ejecutaremos las pruebas.',
+      desc:'Preparamos ambientes, datos y herramientas para ejecutar pruebas fiables y replicables.',
       kpis:[
         ['Disponibilidad', 'Ambiente QA 99.9% operativo'],
         ['Datos', 'Dataset completo y actualizado']
@@ -269,7 +281,7 @@
     },
     {
       id:'t-exec', title:'5. Ejecución de Pruebas',
-      desc:'Fase operativa donde validamos CADA ASPECTO del sistema.',
+      desc:'Ejecutamos casos, registramos evidencias, medimos resultados y gestionamos defectos.',
       kpis:[
         ['Efectividad', '95% pass rate en pruebas'],
         ['Defectos', '0 críticos pendientes']
@@ -282,7 +294,7 @@
     },
     {
       id:'t-close', title:'6. Cierre de Pruebas',
-      desc:'Fase final donde evaluamos RESULTADOS y tomamos decisiones.',
+      desc:'Consolidamos resultados, aprendizajes y decisión informada de liberación (GO/NO-GO).',
       kpis:[
         ['Cobertura', '100% requisitos verificados'],
         ['Calidad', 'Métricas dentro de objetivos']
@@ -304,7 +316,7 @@
         <article class="card" id="${p.id}" role="button" tabindex="0" aria-expanded="false" aria-label="${p.title}" data-aos="fade" data-aos-duration="500" data-aos-easing="ease-out-cubic" data-aos-delay="${i * 80}">
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
-          <div class="actions"><button class="btn" data-expand="${p.id}">Explorar detalles y fases de prueba relacionadas</button></div>
+          <div class="actions"><button class="btn" data-expand="${p.id}">Ver detalles y fases de prueba relacionadas</button></div>
           <div class="expand" id="exp-${p.id}">
             <div class="inner">
               <div class="grid">
